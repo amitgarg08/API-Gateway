@@ -1,0 +1,29 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: HOTEL-SERVICE
+        uri: lb://HOTEL-SERVICE
+        predicates:
+        - Path=/hotel/**
+      - id: SOAP-SERVICE
+#        uri: lb://SOAP-SERVICE
+        uri: http://localhost:9093
+        predicates:
+        - Path=/ws/**  
+          
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url: 
+      defaulZone: http://localhost:8761/eureka
+
+      
+              
